@@ -2,17 +2,55 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ApiResource(attributes={"route_prefix"="/immotep"})
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
  */
+
+/**
+ * @ORM\Entity
+ * @Vich\Uploadable
+ */
+#[ApiResource(
+    iri: 'http://schema.org/Book',
+    normalizationContext: ['groups' => ['book:read']],
+    denormalizationContext: ['groups' => ['book:write']],
+    collectionOperations: [
+    'get',
+    'post' => [
+        'input_formats' => [
+            'multipart' => ['multipart/form-data'],
+        ],
+    ],
+],
+)]
 class Property
 {
+    #[ApiProperty(iri: 'http://schema.org/contentUrl')]
+    #[Groups(['property:read'])]
+    public ?string $contentUrl = null;
+
+    /**
+     * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
+     */
+    #[Groups(['book:write'])]
+    public ?File $file = null;
+
+    /**
+     * @ORM\Column(nullable=true)
+     */
+    public ?string $filePath = null;
+
+    // ...
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -74,6 +112,41 @@ class Property
      * @ORM\JoinColumn(nullable=true)
      */
     private $agent;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $postal;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $adress;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $kitchen;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $garage;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $outside;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $above;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $peb;
 
     public function getId(): ?int
     {
@@ -184,6 +257,90 @@ class Property
     public function setAgent(?Agent $agent): self
     {
         $this->agent = $agent;
+
+        return $this;
+    }
+
+    public function getPostal(): ?int
+    {
+        return $this->postal;
+    }
+
+    public function setPostal(int $postal): self
+    {
+        $this->postal = $postal;
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(string $adress): self
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getKitchen(): ?int
+    {
+        return $this->kitchen;
+    }
+
+    public function setKitchen(int $kitchen): self
+    {
+        $this->kitchen = $kitchen;
+
+        return $this;
+    }
+
+    public function getGarage(): ?int
+    {
+        return $this->garage;
+    }
+
+    public function setGarage(int $garage): self
+    {
+        $this->garage = $garage;
+
+        return $this;
+    }
+
+    public function getOutside(): ?string
+    {
+        return $this->outside;
+    }
+
+    public function setOutside(string $outside): self
+    {
+        $this->outside = $outside;
+
+        return $this;
+    }
+
+    public function getAbove(): ?string
+    {
+        return $this->above;
+    }
+
+    public function setAbove(string $above): self
+    {
+        $this->above = $above;
+
+        return $this;
+    }
+
+    public function getPeb(): ?string
+    {
+        return $this->peb;
+    }
+
+    public function setPeb(string $peb): self
+    {
+        $this->peb = $peb;
 
         return $this;
     }

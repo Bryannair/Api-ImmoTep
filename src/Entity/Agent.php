@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(attributes={"route_prefix"="/immotep"})
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=AgentRepository::class)
  */
 class Agent
@@ -45,6 +45,11 @@ class Agent
      * @ORM\OneToMany(targetEntity=Property::class, mappedBy="agent")
      */
     private $properties;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $agentDescribtion;
 
     public function __construct()
     {
@@ -118,6 +123,18 @@ class Agent
                 $property->setAgent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getagentDescribtion(): ?string
+    {
+        return $this->agentDescribtion;
+    }
+
+    public function setagentDescribtion(string $agentDescribtion): self
+    {
+        $this->agentDescribtion = $agentDescribtion;
 
         return $this;
     }
