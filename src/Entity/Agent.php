@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiResource()
@@ -28,6 +30,16 @@ class Agent
      * @Groups("post:read")
      */
     private $name;
+
+    /**
+     * @ORM\Column (type="string", length=255, nullable=true)
+     */
+    private $image;
+    /**
+     * @Vich\UploadableField(mapping="agent_image", fileNameProperty="")
+     * @var File
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)

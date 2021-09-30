@@ -52,6 +52,8 @@ security:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
     access_control:
-        - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the Swagger UI
+        - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY} # , methods: ['GET']  Allows accessing the Swagger UI
+        - { path: ^/api/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: ['POST'] } # Allows accessing the Swagger UI
+        - { path: ^/api, roles: ROLE_USER, methods: ['PUT','POST','DELETE'] } # Allows accessing the Swagger UI
         - { path: ^/authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
