@@ -28,11 +28,19 @@ security:
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
         api:
             pattern: ^/api
             stateless: true
             anonymous: true
+#            provider: user
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
@@ -42,16 +50,20 @@ security:
             anonymous: true
             provider: app_user_provider
             json_login:
-                check_path: api_login
+                check_path: /api/login
                 username_path: email
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
+#            guard:
+#                authenticators:
+#                    - lexik_jwt_authentication.jwt_token_authenticator
 
     access_control:
-        - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the Swagger UI
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY} # , methods: ['GET']  Allows accessing the Swagger UI
+        - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY} # , methods: ['GET']  Allows accessing the Swagger UI
+        - { path: ^/api/contact, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: ['POST'] } # Allows accessing the Swagger UI
+        - {path: ^/api/admin, roles: ROLE_USER}
+        - { path: ^/api, roles: ROLE_USER, methods: ['PUT','POST','DELETE'] } # Allows accessing the Swagger UI
         - { path: ^/authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

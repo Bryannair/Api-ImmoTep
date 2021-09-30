@@ -10,7 +10,17 @@ final class MultipartDecoder implements DecoderInterface
 {
     public const FORMAT = 'multipart';
 
-    public function __construct(private RequestStack $requestStack) {}
+    private RequestStack $requestStack;
+
+    /**
+     * MultipartDecoder constructor.
+     * @param RequestStack $requestStack
+     */
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
 
     /**
      * {@inheritdoc}

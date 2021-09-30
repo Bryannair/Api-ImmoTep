@@ -13,44 +13,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
- */
-
-/**
- * @ORM\Entity
  * @Vich\Uploadable
  */
-#[ApiResource(
-    iri: 'http://schema.org/Book',
-    normalizationContext: ['groups' => ['book:read']],
-    denormalizationContext: ['groups' => ['book:write']],
-    collectionOperations: [
-    'get',
-    'post' => [
-        'input_formats' => [
-            'multipart' => ['multipart/form-data'],
-        ],
-    ],
-],
-)]
+
 class Property
 {
-    #[ApiProperty(iri: 'http://schema.org/contentUrl')]
-    #[Groups(['property:read'])]
-    public ?string $contentUrl = null;
-
-    /**
-     * @Vich\UploadableField(mapping="media_object", fileNameProperty="filePath")
-     */
-    #[Groups(['book:write'])]
-    public ?File $file = null;
-
-    /**
-     * @ORM\Column(nullable=true)
-     */
-    public ?string $filePath = null;
-
-    // ...
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -70,6 +37,16 @@ class Property
      * @Groups("post:read")
      */
     private $slug;
+
+    /**
+     * @ORM\Column (type="string", length=255, nullable=true)
+     */
+    private $image;
+    /**
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="")
+     * @var File
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="text")
@@ -343,5 +320,41 @@ class Property
         $this->peb = $peb;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile(): File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     */
+    public function setImageFile(File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+
+        if( null !== $imageFile ) {
+            $updated = new \DateTime();
+        }
     }
 }

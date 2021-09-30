@@ -1,0 +1,22 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title 'Bienvenu sur l\'admin de ImmoTep ' %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 alert-info">
+                <p class="h3">Liste des biens</p>
+                <div class="list-group ">
+                    {% for properties in property %}
+                        <li class="list-group d-flex justify-content-between align-items-center">
+                            {{ properties.title }}
+                        </li>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
