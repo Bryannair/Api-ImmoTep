@@ -4,6 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Entity\Agent;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class AgentCrudController extends AbstractCrudController
 {
@@ -12,14 +20,17 @@ class AgentCrudController extends AbstractCrudController
         return Agent::class;
     }
 
-    /*
+
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            EmailField::new('email'),
+            TextField::new('name'),
+            IntegerField::new('portable'),
+            TextEditorField::new('agentDescribtion'),
+            TextareaField::new('imageFile')
+                ->setFormType(VichImageType::class)
+                ->setLabel('Image'),
         ];
     }
-    */
 }

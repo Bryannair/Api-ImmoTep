@@ -1,5 +1,7 @@
 body {
-    background: url("images/1.jpg") center no-repeat;
+    background: url("../assets/images/1.jpg") no-repeat;
+    background-size: cover;
+
 }
 
 .background-form {
@@ -8,6 +10,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 
 .login-form {
     display: flex;
@@ -52,14 +55,7 @@ input {
 }
 
 .btn-send {
-    padding: 0.5rem 3rem;
-    background: #A27F61;
-    color: white;
-    border: none;
-    transition: 0.3s ease-in-out;
-    cursor: pointer;
-    margin-bottom: 3rem;
-    letter-spacing: 1.5px;
+
 }
 
 .btn-send:hover {

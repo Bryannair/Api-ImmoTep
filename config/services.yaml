@@ -25,19 +25,24 @@ services:
   # as action arguments even if you don't extend any base controller class
   App\Controller\:
     resource: '../src/Controller/'
-    tags: ['controller.service_arguments']
+    tags: [ 'controller.service_arguments' ]
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
-#security:
-#  encoders:
-#    App\Entity\User:
-#      algorithm: auto
-#
-#  # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-#  providers:
-#    # used to reload user from session & other features (e.g. switch_user)
-#    app_user_provider:
-#      entity:
-#        class: App\Entity\User
-#        property: email
+  #security:
+  #  encoders:
+  #    App\Entity\User:
+  #      algorithm: auto
+  #
+  #  # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+  #  providers:
+  #    # used to reload user from session & other features (e.g. switch_user)
+  #    app_user_provider:
+  #      entity:
+  #        class: App\Entity\User
+  #        property: email
+
+  App\OpenApi\OpenApiFactory:
+    decorates: 'api_platform.openapi.factory'
+    arguments: ['@App\OpenApi\OpenApiFactory.inner']
+    autoconfigure: false

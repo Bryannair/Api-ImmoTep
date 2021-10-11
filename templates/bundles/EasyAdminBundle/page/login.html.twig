@@ -10,7 +10,7 @@
 
 {% block wrapper_wrapper %}
     {% set page_title = block('page_title') %}
-    {% set _username_label = username_label is defined ? username_label|trans : 'login_page.username'|trans({}, 'EasyAdminBundle') %}
+    {% set _email_label = email_label is defined ? email_label|trans : 'login_page.email'|trans({}, 'EasyAdminBundle') %}
     {% set _password_label = password_label is defined ? password_label|trans : 'login_page.password'|trans({}, 'EasyAdminBundle') %}
     {% set _forgot_password_label = forgot_password_label is defined ? forgot_password_label|trans : 'login_page.forgot_password'|trans({}, 'EasyAdminBundle') %}
     {% set _remember_me_label = remember_me_label is defined ? remember_me_label|trans : 'login_page.remember_me'|trans({}, 'EasyAdminBundle') %}
@@ -54,9 +54,9 @@
                 <input type="hidden" name="{{ target_path_parameter|default('_target_path') }}" value="{{ target_path|default(ea is defined ? path(ea.dashboardRouteName) : '/') }}" />
 
                 <div class="form-group">
-                    <label class="form-control-label required" for="username">{{ _username_label }}</label>
+                    <label class="form-control-label required" for="email">{{ _email_label }}</label>
                     <div class="form-widget">
-                        <input type="text" id="username" name="{{ username_parameter|default('_username') }}" class="form-control" value="{{ last_username|default('') }}" required autofocus autocomplete="username">
+                        <input type="email" id="email" name="{{ email_parameter|default('_email') }}" class="form-control" value="{{ last_email|default('') }}" required autofocus autocomplete="email">
                     </div>
                 </div>
 

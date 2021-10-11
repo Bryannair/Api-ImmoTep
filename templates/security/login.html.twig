@@ -1,42 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
-{% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+{% block body  %}
+    <div>
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+        <form class="background-form" style="display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin:6rem auto;
+    background-color: white;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);"
+              action="{{ path('admin') }}" method="post">
+            <h1 style="">Immo<span style="color: #A27F61">Tep</span></h1>
+            <label style="margin-bottom: 0.5rem;margin-top: 0.5rem;width: 50%;" for="username">Email </label>
+            <input style="width: 50%; margin-bottom: 1.5rem" type="text" id="username" name="_username"/>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+            <label style="margin-bottom: 0.5rem;width: 50%;" for="password">Mot de passe </label>
+            <input style="width: 50%; margin-bottom: 1.5rem" type="password" id="password" name="_password"/>
+            {#
+            If you want to control the URL the user
+            is redirected to on success (more details below)
+            <input type="hidden" name="_target_path" value="/account"/>
+            #}
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+            <button style="padding: 0.5rem 3rem;
+            margin-top: 1rem;
+    background: #A27F61;
+    color: white;
+    border: none;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    margin-bottom: 3rem;
+    letter-spacing: 1.5px;" type="submit">Connexion
+            </button>
+        </form>
+    </div>
 {% endblock %}

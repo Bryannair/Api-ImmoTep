@@ -1,3 +1,6 @@
 authentication_token:
-  path: /authentication_token
-  methods: ['POST']
+  path: /api/login
+  methods: [ 'POST','GET' ]
+
+api_login_check:
+  path: /api/login_check
